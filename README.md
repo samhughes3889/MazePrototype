@@ -1,2 +1,2 @@
-# MazePrototype
-maze prototype for my cs project
+# MazePrototype - Rewritten Path Gen
+rewritting path generation for optimisation/organisation
