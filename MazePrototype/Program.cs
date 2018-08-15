@@ -32,9 +32,9 @@ namespace MazePrototype
                  {'■',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','■'}, //14
                  {'■','■','■','■','■','■','■','■','■','■','■','■','■','■','!','■'}};//15
                 // 0   1   2   3   4   5   6   7   8   9   0   1   2   3   4   5
-
+                
             n.ResetMaze();
-
+            
             n.PrintMaze();
 
             bool IsPathConstructed = false;
@@ -51,28 +51,61 @@ namespace MazePrototype
 
                 RndNo = n.GenerateRnd(RndNo);
 
-                if (RndNo == 0 | RndNo == 1) //Up or Down
+                if (RndNo == 0) //Up or Down
                 {
-                    if ((Point[1] != VertVars[RndNo,0]) & (Point[0] != 2) & (Point[0] != 13)) {
-                        if ((Point[0] != 1) && (n.Maze[Point[1] + VertVars[RndNo, 1], Point[0] - 2] == '%')) {
-                        } else if ((Point[0] != 14) && (n.Maze[Point[1] + VertVars[RndNo, 1], Point[0] + 2] == '%')) {
-                        } 
-                    }
-                    Direction = VertVars[RndNo,0];
-
+                    Direction = 0;
+                    Point[1]--;
+                    n.Maze[Point[1], Point[0]] = '^';
+                    for (int i = -1; i < 2; i += 2)
+                    {
+                        if ((n.Maze[Point[1], Point[0] + i] == '#') | (n.Maze[Point[1], Point[0] + i] == ' '))
+                        {
+                            n.Maze[Point[1], Point[0] + i] = '#';
+                        };
+                    };
                 }
                 else if (RndNo == 1) //Down
                 {
                     Direction = 1;
+                    Point[1]++;
+                    n.Maze[Point[1], Point[0]] = '/';
+                    for (int i = -1; i < 2; i += 2)
+                    {
+                        if ((n.Maze[Point[1], Point[0] + i] == '#') | (n.Maze[Point[1], Point[0] + i] == ' '))
+                        {
+                            n.Maze[Point[1], Point[0] + i] = '#';
+                        };
+                    };
                 }
                 else if (RndNo == 2) //Left
                 {
                     Direction = 3;
+                    Point[0]--;
+                    n.Maze[Point[1], Point[0]] = '<';
+                    for (int i = -1; i < 2; i += 2)
+                    {
+                        if ((n.Maze[Point[1] + i, Point[0]] == '#') | (n.Maze[Point[1] + i, Point[0]] == ' '))
+                        {
+                            n.Maze[Point[1] + i, Point[0]] = '#';
+                        };
+                    };
                 }
                 else if (RndNo == 3) //Right
                 {
                     Direction = 4;
+                    Point[0]++;
+                    n.Maze[Point[1], Point[0]] = '>';
+                    for (int i = -1; i < 2; i += 2)
+                    {
+                        if ((n.Maze[Point[1] + i, Point[0]] == '#') | (n.Maze[Point[1] + i, Point[0]] == ' '))
+                        {
+                            n.Maze[Point[1] + i, Point[0]] = '#';
+                        };
+                    };
                 };
+                
+                n.PrintMaze();
+                Console.ReadLine();
 
             } while (IsPathConstructed == false);
 
